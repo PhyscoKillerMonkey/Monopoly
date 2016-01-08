@@ -1,6 +1,7 @@
 package monopoly;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
@@ -23,7 +24,9 @@ public class Board {
   private boolean canEnd;
   private boolean canRoll;
   private boolean canBuy;
-  private Property currentProperty;
+  private Property prop;
+  
+  private String status;
   
   public Board(GameContainer gc) {
     players = new ArrayList<>();
@@ -35,7 +38,9 @@ public class Board {
     
     canEnd = canBuy = false;
     canRoll = true;
-    currentProperty = null;
+    prop = null;
+    
+    status = "Welcome to Monopoly";
     
     makeBoard();
   }
@@ -77,15 +82,6 @@ public class Board {
   public void update(GameContainer gc) {
     Player p = players.get(currentPlayer);
     
-    // End turn
-    if (in.isKeyPressed(KeyEvent.VK_E) && canEnd) {
-      currentPlayer++;
-      if (currentPlayer == players.size()) currentPlayer = 0;
-      p = players.get(currentPlayer);
-      canRoll = true;
-      canEnd = false;
-    }
-    
     // Roll dice
     if (in.isKeyPressed(KeyEvent.VK_R) && canRoll) {
       p.move(rollDie());
@@ -93,29 +89,47 @@ public class Board {
       if (spaces.get(p.getPosition()).action(gc, p)) {
         canEnd = true;
       } else {
-        currentProperty = (Property) spaces.get(p.getPosition());
+        prop = (Property) spaces.get(p.getPosition());
         canBuy = true;
+        status = prop.getName() + " costs " + prop.getPrice() + ". Buy? (Y)es or (N)o";
       }
     }
     
     // Buy or don't buy
     if (in.isKeyPressed(KeyEvent.VK_Y) && canBuy) {
-      currentProperty.setOwner(p);
-      p.changeMoney(-currentProperty.getPrice());
-      p.addOwned(currentProperty);
+      prop.setOwner(p);
+      p.changeMoney(-prop.getPrice());
+      p.addOwned(prop);
       canBuy = false;
       canEnd = true;
+      status = p.getName() + " bought " + prop.getName() + " for "
+          + prop.getPrice() + ". Press E to end turn";
     }
     if (in.isKeyPressed(KeyEvent.VK_N) && canBuy) {
       // This should be auction!!!!
       canBuy = false;
       canEnd = true;
+      status = "Press E to end turn";
+    }
+    
+    // End turn
+    if (in.isKeyPressed(KeyEvent.VK_E) && canEnd) {
+      currentPlayer++;
+      if (currentPlayer == players.size()) currentPlayer = 0;
+      p = players.get(currentPlayer);
+      canRoll = true;
+      canEnd = false;
+      status = p.getName() + "'s turn, press R to roll";
     }
   }
   
   public void render(GameContainer gc, Renderer r) {
     r.fillRect(0, 0, gc.getWidth(), gc.getHeight(), new Color(255,255,255));
+    
     r.drawRect(50, 50, 588, 588, new Color(20,20,20));
     spaces.forEach(s -> s.render(gc, r));
+    
+    // Draw the status panel
+    r.drawStringCentered(status, 344, 344, new Font("Arial", Font.PLAIN, 20), new Color(20, 20, 20));
   }
 }

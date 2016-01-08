@@ -57,7 +57,8 @@ public class Renderer {
   
   public void drawStringCentered(String string, int x, int y, Font f, Color c) {
     int w = g.getFontMetrics(f).stringWidth(string);
-    drawString(string, x - w, y, f, c);
+    int hAscent = g.getFontMetrics(f).getAscent() / 2;
+    drawString(string, x - w/2, y - hAscent, f, c);
   }
   
   public void clear() {
