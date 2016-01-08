@@ -34,13 +34,21 @@ public class Board {
         case 10: spaces.add(new Jail()); break;
         case 20: spaces.add(new Parking()); break;
         case 30: spaces.add(new GotoJail()); break;
-        default: spaces.add(new Property("", 10, i));
+        default: spaces.add(new Property("Property", 10, i));
       }
     }
   }
   
   public void addPlayer(String name) {
     players.add(new Player(name));
+  }
+  
+  public Player getPlayer(int index) {
+    return players.get(index);
+  }
+  
+  public int numberPlayers() {
+    return players.size();
   }
   
   public int rollDie() {
@@ -53,11 +61,12 @@ public class Board {
   public void update(GameContainer gc) {
     Player p = players.get(currentPlayer);
     p.move(rollDie());
+    System.out.println("Player is at " + spaces.get(p.getPosition()).getName());
   }
   
   public void render(GameContainer gc, Renderer r) {
     r.fillRect(0, 0, gc.getWidth(), gc.getHeight(), new Color(255,255,255));
     r.drawRect(100, 40, 392, 392, new Color(20,20,20));
-    spaces.forEach(p -> p.render(gc, r));
+    spaces.forEach(s -> s.render(gc, r));
   }
 }

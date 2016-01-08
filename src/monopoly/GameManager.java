@@ -32,4 +32,8 @@ public class GameManager {
   public void render(GameContainer gc, Renderer r) {
     board.render(gc, r);
   }
+
+  public Board getBoard() {
+    return board;
+  }
 }

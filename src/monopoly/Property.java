@@ -29,19 +29,36 @@ public class Property extends Space {
     int side = (int) Math.floor(index/10);
     int offset = Math.floorMod(index, 10);
     
+    int cX = 0, cY = 0, cW = 0, cH = 0;
+    
     switch (side) {
       case 0:
-        r.drawRect((startX+bWidth-height)-width*offset, startY+bHeight-height, width, height, black);
+        cX = startX + bWidth - height - width*offset;
+        cY = startY + bHeight - height;
+        cW = width; cH = height;
         break;
       case 1:
-        r.drawRect(startX, startY+bHeight-height-width*offset, height, width, black);
+        cX = startX;
+        cY = startY + bHeight - height - width*offset;
+        cW = height; cH = width;
         break;
       case 2:
-        r.drawRect(startX+(height-width)+width*offset, startY, width, height, black);
+        cX = startX + height + width*(offset-1);
+        cY = startY;
+        cW = width; cH = height;
         break;
       case 3:
-        r.drawRect(startX+bWidth-height, startY+(height-width)+width*offset, height, width, black);
+        cX = startX + bWidth - height;
+        cY = startY + height + width * (offset-1);
+        cW = height; cH = width;
         break;
+    }
+    r.drawRect(cX, cY, cW, cH, black);
+    
+    for (int i = 0; i < gc.getGame().getBoard().numberPlayers(); i++) {
+      if (gc.getGame().getBoard().getPlayer(i).getPosition() == index) {
+        r.fillRect(cX, cY, cW, cH, new Color(200, 100, 200));
+      }
     }
   }
 
