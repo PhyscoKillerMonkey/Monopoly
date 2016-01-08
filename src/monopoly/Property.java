@@ -9,17 +9,28 @@ public class Property extends Space {
   
   private int price;
   private int houses;
-  private String owner;
+  private Player owner;
+  private int rent;
   
-  public Property(String name, int price, int index) {
+  public Property(String name, int price, int rent, int index) {
     this.name = name;
     this.price = price;
     this.index = index;
-    this.owner = "bank";
+    this.owner = null;
+    this.rent = rent;
   }
 
   @Override
-  public void action(GameContainer gc) {
+  public boolean action(GameContainer gc, Player p) {
+    if (owner == null) {
+      System.out.println("Unowned, buy " + name + " for " + price);
+      return false;
+    } else {
+      System.out.println(p.getName() + " owes " + owner.getName() + " " + rent + " in rent");
+      p.changeMoney(-rent);
+      owner.changeMoney(rent);
+      return true;
+    }
   }
 
   @Override
@@ -70,12 +81,12 @@ public class Property extends Space {
     this.houses = houses;
   }
 
-  public String getOwner() {
+  public Player getOwner() {
     return owner;
   }
 
-  public void setOwner(String owner) {
-    this.owner = owner.toLowerCase();
+  public void setOwner(Player owner) {
+    this.owner = owner;
   }
 
   public int getPrice() {

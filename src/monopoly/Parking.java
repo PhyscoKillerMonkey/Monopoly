@@ -13,7 +13,8 @@ public class Parking extends Space {
   }
 
   @Override
-  public void action(GameContainer gc) {
+  public boolean action(GameContainer gc, Player p) {
+    return true;
   }
 
   @Override

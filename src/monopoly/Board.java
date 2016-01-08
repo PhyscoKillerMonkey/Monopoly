@@ -1,9 +1,11 @@
 package monopoly;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import monopoly.core.GameContainer;
+import monopoly.core.Input;
 import monopoly.core.Renderer;
 
 public class Board {
@@ -15,11 +17,25 @@ public class Board {
   private int die1;
   private int die2;
   
-  public Board() {
+  private Input in;
+  
+  // Game Flow Variables
+  private boolean canEnd;
+  private boolean canRoll;
+  private boolean canBuy;
+  private Property currentProperty;
+  
+  public Board(GameContainer gc) {
     players = new ArrayList<>();
     currentPlayer = 0;
     die1 = 1;
     die2 = 1;
+    
+    in = gc.getInput();
+    
+    canEnd = canBuy = false;
+    canRoll = true;
+    currentProperty = null;
     
     makeBoard();
   }
@@ -34,7 +50,7 @@ public class Board {
         case 10: spaces.add(new Jail()); break;
         case 20: spaces.add(new Parking()); break;
         case 30: spaces.add(new GotoJail()); break;
-        default: spaces.add(new Property("Property", 10, i));
+        default: spaces.add(new Property("Property", 10, 10, i));
       }
     }
   }
@@ -60,8 +76,41 @@ public class Board {
   
   public void update(GameContainer gc) {
     Player p = players.get(currentPlayer);
-    p.move(rollDie());
-    System.out.println("Player is at " + spaces.get(p.getPosition()).getName());
+    
+    // End turn
+    if (in.isKeyPressed(KeyEvent.VK_E) && canEnd) {
+      currentPlayer++;
+      if (currentPlayer == players.size()) currentPlayer = 0;
+      p = players.get(currentPlayer);
+      canRoll = true;
+      canEnd = false;
+    }
+    
+    // Roll dice
+    if (in.isKeyPressed(KeyEvent.VK_R) && canRoll) {
+      p.move(rollDie());
+      canRoll = false;
+      if (spaces.get(p.getPosition()).action(gc, p)) {
+        canEnd = true;
+      } else {
+        currentProperty = (Property) spaces.get(p.getPosition());
+        canBuy = true;
+      }
+    }
+    
+    // Buy or don't buy
+    if (in.isKeyPressed(KeyEvent.VK_Y) && canBuy) {
+      currentProperty.setOwner(p);
+      p.changeMoney(-currentProperty.getPrice());
+      p.addOwned(currentProperty);
+      canBuy = false;
+      canEnd = true;
+    }
+    if (in.isKeyPressed(KeyEvent.VK_N) && canBuy) {
+      // This should be auction!!!!
+      canBuy = false;
+      canEnd = true;
+    }
   }
   
   public void render(GameContainer gc, Renderer r) {

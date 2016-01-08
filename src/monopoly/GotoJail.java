@@ -13,7 +13,10 @@ public class GotoJail extends Space {
   }
 
   @Override
-  public void action(GameContainer gc) {
+  public boolean action(GameContainer gc, Player p) {
+    p.setPosition(10);
+    p.setInJail(true);
+    return true;
   }
 
   @Override

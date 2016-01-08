@@ -13,7 +13,13 @@ public class Jail extends Space {
   }
 
   @Override
-  public void action(GameContainer gc) {
+  public boolean action(GameContainer gc, Player p) {
+    if (p.inJail()) {
+      System.out.println(p.getName() + " is in jail");
+    } else {
+      System.out.println(p.getName() + " is just passing");
+    }
+    return true;
   }
 
   @Override

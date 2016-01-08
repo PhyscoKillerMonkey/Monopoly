@@ -1,15 +1,11 @@
 package monopoly;
 
-import java.awt.event.KeyEvent;
-
 import monopoly.core.GameContainer;
-import monopoly.core.Input;
 import monopoly.core.Renderer;
 
 public class GameManager {
   
   private Board board;
-  private Input i;
 
   public static void main(String[] args) {
     GameContainer gc = new GameContainer(new GameManager());
@@ -20,16 +16,12 @@ public class GameManager {
     gc.setWidth(688);
     gc.setHeight(688);
     
-    i = gc.getInput();
-    
-    board = new Board();
+    board = new Board(gc);
     board.addPlayer("Bob");
   }
   
   public void update(GameContainer gc) {
-    if (i.isKeyPressed(KeyEvent.VK_R)) {
-      board.update(gc);
-    }
+    board.update(gc);
   }
   
   public void render(GameContainer gc, Renderer r) {

@@ -10,22 +10,24 @@ public class Player {
   private String name;
   private int position;
   private int money;
-  private ArrayList<Integer> owned;
+  private ArrayList<Property> owned;
+  private boolean inJail;
   
   public Player(String name) {
     this.name = name;
     this.position = 0;
     this.money = 1500;
     owned = new ArrayList<>();
+    inJail = false;
   }
   
   public void move(int steps) {
     position += steps;
     if (position > 39) {
       position = position - 40;
-      // Passed go add money
+      changeMoney(200);
     }
-    System.out.println("Player " + name + " at " + position);
+    System.out.println("Player " + name + " at " + position + " Money: " + money);
   }
   
   public void render(GameContainer gc, Renderer r) {
@@ -33,6 +35,7 @@ public class Player {
   }
   
   public void changeMoney(int change) {
+    System.out.println("Player " + name + " got " + change + " money");
     money += change;
   }
   
@@ -64,7 +67,20 @@ public class Player {
     }
   }
 
-  public ArrayList<Integer> getOwned() {
+  public ArrayList<Property> getOwned() {
     return owned;
+  }
+  
+  public void addOwned(Property p) {
+    owned.add(p);
+    System.out.println(name + " bought " + p.getName());
+  }
+
+  public boolean inJail() {
+    return inJail;
+  }
+
+  public void setInJail(boolean inJail) {
+    this.inJail = inJail;
   }
 }

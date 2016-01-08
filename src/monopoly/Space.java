@@ -25,7 +25,7 @@ public abstract class Space {
     startY = 50;
   }
   
-  public abstract void action(GameContainer gc);
+  public abstract boolean action(GameContainer gc, Player p);
   public abstract void render(GameContainer gc, Renderer r);
 
   public String getName() {
