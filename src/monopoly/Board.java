@@ -66,7 +66,7 @@ public class Board {
   
   public void render(GameContainer gc, Renderer r) {
     r.fillRect(0, 0, gc.getWidth(), gc.getHeight(), new Color(255,255,255));
-    r.drawRect(100, 40, 392, 392, new Color(20,20,20));
+    r.drawRect(50, 50, 588, 588, new Color(20,20,20));
     spaces.forEach(s -> s.render(gc, r));
   }
 }

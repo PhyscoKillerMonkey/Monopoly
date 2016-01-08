@@ -17,6 +17,9 @@ public class GameManager {
   }
   
   public void init(GameContainer gc) {
+    gc.setWidth(688);
+    gc.setHeight(688);
+    
     i = gc.getInput();
     
     board = new Board();

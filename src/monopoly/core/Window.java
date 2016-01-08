@@ -47,6 +47,8 @@ public class Window {
   }
   
   public void updateSize(GameContainer gc) {
+    backBuffer = new BufferedImage(gc.getWidth(), gc.getHeight(), BufferedImage.TYPE_INT_RGB);
+    
     insets = frame.getInsets();
     width = gc.getWidth();
     height = gc.getHeight();

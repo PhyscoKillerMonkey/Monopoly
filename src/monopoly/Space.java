@@ -18,12 +18,11 @@ public abstract class Space {
     index = -1;
     
     // Drawing variables
-    width = 32;
-    height = 52;
-    bWidth = 392;
-    bHeight = 392;
-    startX = 100;
-    startY = 40;
+    width = 48;
+    height = 78;
+    bWidth = bHeight = width*9 + height*2;
+    startX = 50;
+    startY = 50;
   }
   
   public abstract void action(GameContainer gc);

@@ -114,8 +114,8 @@ public class GameContainer implements Runnable {
 
   public void setHeight(int height) {
     this.height = height;
-    renderer.updateSize(this);
     window.updateSize(this);
+    renderer.updateSize(this);
   }
 
   public String getTitle() {
