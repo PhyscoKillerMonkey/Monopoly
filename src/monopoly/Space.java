@@ -8,9 +8,22 @@ public abstract class Space {
   protected String name;
   protected int index;
   
+  //Drawing variables
+  protected int width, height;
+  protected int bWidth, bHeight;
+  protected int startX, startY;
+  
   public Space() {
     name = "NoName";
     index = -1;
+    
+    // Drawing variables
+    width = 32;
+    height = 52;
+    bWidth = 392;
+    bHeight = 392;
+    startX = 100;
+    startY = 40;
   }
   
   public abstract void action(GameContainer gc);

@@ -1,5 +1,7 @@
 package monopoly;
 
+import java.awt.Color;
+
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
 
@@ -16,6 +18,8 @@ public class GotoJail extends Space {
 
   @Override
   public void render(GameContainer gc, Renderer r) {
+    Color black = new Color(20, 20, 20);
+    r.drawRect(startX+bWidth-height, startY, height, height, black);
   }
 
 }

@@ -5,11 +5,11 @@ import java.awt.Color;
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
 
-public class Jail extends Space {
+public class Go extends Space {
   
-  public Jail() {
-    name = "jail";
-    index = 10;
+  public Go() {
+    name = "go";
+    index = 0;
   }
 
   @Override
@@ -19,7 +19,7 @@ public class Jail extends Space {
   @Override
   public void render(GameContainer gc, Renderer r) {
     Color black = new Color(20, 20, 20);
-    r.drawRect(startX, startY+bHeight-height, height, height, black);
+    r.drawRect(startX+bWidth-height, startY+bHeight-height, height, height, black);
   }
 
 }

@@ -66,7 +66,7 @@ public class GameContainer implements Runnable {
     double passedTime = 0;
     double timeLeft = 0;
     
-    // game.init(this);
+    game.init(this);
     
     while(isRunning) {
       boolean shouldRender = false;
@@ -78,15 +78,15 @@ public class GameContainer implements Runnable {
       timeLeft += passedTime;
       
       while (timeLeft > frameLength) {
-        // game.update();
-        // input.update();
+        game.update(this);
+        input.update();
         
         timeLeft -= frameLength;
         shouldRender = true;
       }
       
       if (shouldRender) {
-        // game.render();
+        game.render(this, renderer);
         window.update();
       } else {
         try {

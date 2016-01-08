@@ -21,6 +21,11 @@ public class Player {
   
   public void move(int steps) {
     position += steps;
+    if (position > 39) {
+      position = position - 40;
+      // Passed go add money
+    }
+    System.out.println("Player " + name + " at " + position);
   }
   
   public void render(GameContainer gc, Renderer r) {
