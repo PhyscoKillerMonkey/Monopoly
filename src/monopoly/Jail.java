@@ -18,6 +18,7 @@ public class Jail extends Space {
       System.out.println(p.getName() + " is in jail");
     } else {
       System.out.println(p.getName() + " is just passing");
+      gc.getGame().getBoard().setStatus(p.getName() + " is just passing jail. Press E to end turn");
     }
     return true;
   }

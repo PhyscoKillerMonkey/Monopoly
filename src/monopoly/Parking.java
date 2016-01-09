@@ -14,6 +14,7 @@ public class Parking extends Space {
 
   @Override
   public boolean action(GameContainer gc, Player p) {
+    gc.getGame().getBoard().setStatus("Free parking! Press E to end turn");
     return true;
   }
 

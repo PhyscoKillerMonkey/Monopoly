@@ -29,6 +29,7 @@ public class Property extends Space {
       System.out.println(p.getName() + " owes " + owner.getName() + " " + rent + " in rent");
       p.changeMoney(-rent);
       owner.changeMoney(rent);
+      gc.getGame().getBoard().setStatus(owner.getName() + " owns " + name + " pay " + rent + " rent");
       return true;
     }
   }

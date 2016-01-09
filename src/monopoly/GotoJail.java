@@ -14,6 +14,7 @@ public class GotoJail extends Space {
 
   @Override
   public boolean action(GameContainer gc, Player p) {
+    gc.getGame().getBoard().setStatus("Go to jail! Press E to end turn");
     p.setPosition(10);
     p.setInJail(true);
     return true;

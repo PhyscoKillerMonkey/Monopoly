@@ -132,4 +132,8 @@ public class Board {
     // Draw the status panel
     r.drawStringCentered(status, 344, 344, new Font("Arial", Font.PLAIN, 20), new Color(20, 20, 20));
   }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
 }
