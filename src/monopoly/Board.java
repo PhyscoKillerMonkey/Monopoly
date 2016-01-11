@@ -21,6 +21,7 @@ import monopoly.spaces.Jail;
 import monopoly.spaces.Parking;
 import monopoly.spaces.Property;
 import monopoly.spaces.Space;
+import monopoly.spaces.Station;
 
 public class Board {
 
@@ -57,9 +58,13 @@ public class Board {
     spaces = new Space[40];
     
     spaces[0] = new Go();
+    spaces[5] = new Station("King's Cross Station");
     spaces[10] = new Jail();
+    spaces[15] = new Station("Marylebone Station");
     spaces[20] = new Parking();
+    spaces[15] = new Station("Fenchurch St Station");
     spaces[30] = new GotoJail();
+    spaces[15] = new Station("Liverpool Street Station");
     
     // Read Properties
     BufferedReader reader = new BufferedReader(new InputStreamReader

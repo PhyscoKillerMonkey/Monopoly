@@ -1,19 +1,20 @@
 package monopoly.popups;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import monopoly.Player;
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
 import monopoly.spaces.Property;
+import monopoly.spaces.Station;
+import monopoly.spaces.Space;
 
 public class BuyPopup extends Popup {
   
   private Player p;
-  private Property prop;
+  private Space prop;
   
-  public BuyPopup(GameContainer gc, Property prop, Player p) {
+  public BuyPopup(GameContainer gc, Space prop, Player p) {
     super(gc, 100, 100, 400, 600);
     this.prop = prop;
     this.p = p;
@@ -21,9 +22,15 @@ public class BuyPopup extends Popup {
 
   public void update(GameContainer gc) {
     if (gc.getInput().isKeyPressed(KeyEvent.VK_Y)) {
-      p.changeMoney(-prop.getPrice());
-      p.addOwned(prop);
-      prop.setOwner(p);
+      if (prop instanceof Property) {
+        p.changeMoney(-((Property) prop).getPrice());
+        p.addProperty((Property) prop);
+        ((Property) prop).setOwner(p);
+      } else if (prop instanceof Station) {
+        p.changeMoney(-((Station) prop).getPrice());
+        p.addStation((Station) prop);
+        ((Station) prop).setOwner(p);
+      }
       close(gc);
     } 
     if (gc.getInput().isKeyPressed(KeyEvent.VK_N)) {

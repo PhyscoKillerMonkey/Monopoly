@@ -5,20 +5,22 @@ import java.util.ArrayList;
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
 import monopoly.spaces.Property;
+import monopoly.spaces.Station;
 
 public class Player {
 
   private String name;
   private int position;
   private int money;
-  private ArrayList<Property> owned;
+  private ArrayList<Property> properties;
+  private ArrayList<Station> stations;
   private boolean inJail;
   
   public Player(String name) {
     this.name = name;
     this.position = 0;
     this.money = 1500;
-    owned = new ArrayList<>();
+    properties = new ArrayList<>();
     inJail = false;
   }
   
@@ -68,13 +70,22 @@ public class Player {
     }
   }
 
-  public ArrayList<Property> getOwned() {
-    return owned;
+  public ArrayList<Property> getProperty() {
+    return properties;
   }
   
-  public void addOwned(Property p) {
-    owned.add(p);
+  public void addProperty(Property p) {
+    properties.add(p);
     System.out.println(name + " bought " + p.getName());
+  }
+
+  public ArrayList<Station> getStations() {
+    return stations;
+  }
+
+  public void addStation(Station s) {
+    stations.add(s);
+    System.out.println(name + " bought " + s.getName());
   }
 
   public boolean inJail() {
