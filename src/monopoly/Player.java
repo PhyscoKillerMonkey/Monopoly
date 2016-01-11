@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
+import monopoly.spaces.Property;
 
 public class Player {
 

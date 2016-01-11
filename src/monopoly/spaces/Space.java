@@ -1,5 +1,6 @@
-package monopoly;
+package monopoly.spaces;
 
+import monopoly.Player;
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
 
@@ -25,7 +26,7 @@ public abstract class Space {
     startY = 50;
   }
   
-  public abstract boolean action(GameContainer gc, Player p);
+  public abstract void action(GameContainer gc, Player p);
   public abstract void render(GameContainer gc, Renderer r);
 
   public String getName() {

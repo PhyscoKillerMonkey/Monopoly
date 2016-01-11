@@ -1,18 +1,20 @@
-package monopoly;
+package monopoly.spaces;
 
 import java.awt.Color;
 
+import monopoly.Player;
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
+import monopoly.popups.BuyPopup;
 
 public class Property extends Space {
   
   private int price;
   private int houses;
   private Player owner;
-  private int rent;
+  private int[] rent;
   
-  public Property(String name, int price, int rent, int index) {
+  public Property(String name, int price, int[] rent, int index) {
     this.name = name;
     this.price = price;
     this.index = index;
@@ -21,16 +23,13 @@ public class Property extends Space {
   }
 
   @Override
-  public boolean action(GameContainer gc, Player p) {
+  public void action(GameContainer gc, Player p) {
     if (owner == null) {
-      System.out.println("Unowned, buy " + name + " for " + price);
-      return false;
+      gc.getGame().push(new BuyPopup(gc, this, p));
     } else {
-      System.out.println(p.getName() + " owes " + owner.getName() + " " + rent + " in rent");
-      p.changeMoney(-rent);
-      owner.changeMoney(rent);
+      p.changeMoney(-getRent());
+      owner.changeMoney(getRent());
       gc.getGame().getBoard().setStatus(owner.getName() + " owns " + name + " pay " + rent + " rent");
-      return true;
     }
   }
 
@@ -94,4 +93,7 @@ public class Property extends Space {
     return price;
   }
 
+  public int getRent() {
+    return rent[houses];
+  }
 }

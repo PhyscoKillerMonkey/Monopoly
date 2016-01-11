@@ -1,7 +1,8 @@
-package monopoly;
+package monopoly.spaces;
 
 import java.awt.Color;
 
+import monopoly.Player;
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
 
@@ -13,14 +14,13 @@ public class Jail extends Space {
   }
 
   @Override
-  public boolean action(GameContainer gc, Player p) {
+  public void action(GameContainer gc, Player p) {
     if (p.inJail()) {
       System.out.println(p.getName() + " is in jail");
     } else {
       System.out.println(p.getName() + " is just passing");
       gc.getGame().getBoard().setStatus(p.getName() + " is just passing jail. Press E to end turn");
     }
-    return true;
   }
 
   @Override

@@ -3,16 +3,29 @@ package monopoly;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonValue;
 
 import monopoly.core.GameContainer;
 import monopoly.core.Input;
 import monopoly.core.Renderer;
+import monopoly.spaces.Go;
+import monopoly.spaces.GotoJail;
+import monopoly.spaces.Jail;
+import monopoly.spaces.Parking;
+import monopoly.spaces.Property;
+import monopoly.spaces.Space;
 
 public class Board {
 
   private ArrayList<Player> players;
-  private ArrayList<Space> spaces;
+  private Space[] spaces;
   private int currentPlayer;
   
   private int die1;
@@ -21,10 +34,7 @@ public class Board {
   private Input in;
   
   // Game Flow Variables
-  private boolean canEnd;
-  private boolean canRoll;
-  private boolean canBuy;
-  private Property prop;
+  private boolean hasRolled;
   
   private String status;
   
@@ -36,9 +46,7 @@ public class Board {
     
     in = gc.getInput();
     
-    canEnd = canBuy = false;
-    canRoll = true;
-    prop = null;
+    hasRolled = false;
     
     status = "Welcome to Monopoly";
     
@@ -46,17 +54,38 @@ public class Board {
   }
   
   public void makeBoard() {
-    spaces = new ArrayList<>();
+    spaces = new Space[40];
     
-    // Correctly fill the spaces
-    for (int i = 0; i <= 39; i++) {
-      switch (i) {
-        case 0: spaces.add(new Go()); break;
-        case 10: spaces.add(new Jail()); break;
-        case 20: spaces.add(new Parking()); break;
-        case 30: spaces.add(new GotoJail()); break;
-        default: spaces.add(new Property("Property", 10, 10, i));
+    spaces[0] = new Go();
+    spaces[10] = new Jail();
+    spaces[20] = new Parking();
+    spaces[30] = new GotoJail();
+    
+    // Read Properties
+    BufferedReader reader = new BufferedReader(new InputStreamReader(GameManager.class.getResourceAsStream("/test.json")));
+    String file = "";
+    try {
+      String line = reader.readLine();
+      while (line != null) {
+        file += line.trim();
+        line = reader.readLine();
       }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    JsonArray items = Json.parse(file).asObject().get("properties").asArray();
+    for (JsonValue item : items) {
+      int index = item.asObject().getInt("index", -1);
+      String name = item.asObject().getString("name", "NoName");
+      int price = item.asObject().getInt("price", 0);
+      int rent0 = item.asObject().getInt("rent0", 0);
+      int rent1 = item.asObject().getInt("rent1", 0);
+      int rent2 = item.asObject().getInt("rent2", 0);
+      int rent3 = item.asObject().getInt("rent3", 0);
+      int rent4 = item.asObject().getInt("rent4", 0);
+      int rent5 = item.asObject().getInt("rent5", 0);
+      int[] rents = {rent0, rent1, rent2, rent3, rent4, rent5};
+      spaces[index] = new Property(name, price, rents, index);
     }
   }
   
@@ -66,6 +95,10 @@ public class Board {
   
   public Player getPlayer(int index) {
     return players.get(index);
+  }
+  
+  public Player getCurrentPlayer() {
+    return players.get(currentPlayer);
   }
   
   public int numberPlayers() {
@@ -83,42 +116,20 @@ public class Board {
     Player p = players.get(currentPlayer);
     
     // Roll dice
-    if (in.isKeyPressed(KeyEvent.VK_R) && canRoll) {
+    if (in.isKeyPressed(KeyEvent.VK_R) && !hasRolled) {
       p.move(rollDie());
-      canRoll = false;
-      if (spaces.get(p.getPosition()).action(gc, p)) {
-        canEnd = true;
-      } else {
-        prop = (Property) spaces.get(p.getPosition());
-        canBuy = true;
-        status = prop.getName() + " costs " + prop.getPrice() + ". Buy? (Y)es or (N)o";
-      }
-    }
-    
-    // Buy or don't buy
-    if (in.isKeyPressed(KeyEvent.VK_Y) && canBuy) {
-      prop.setOwner(p);
-      p.changeMoney(-prop.getPrice());
-      p.addOwned(prop);
-      canBuy = false;
-      canEnd = true;
-      status = p.getName() + " bought " + prop.getName() + " for "
-          + prop.getPrice() + ". Press E to end turn";
-    }
-    if (in.isKeyPressed(KeyEvent.VK_N) && canBuy) {
-      // This should be auction!!!!
-      canBuy = false;
-      canEnd = true;
+      hasRolled = true;
+      System.out.println(p.getPosition());
+      spaces[p.getPosition()].action(gc, p);
       status = "Press E to end turn";
     }
     
     // End turn
-    if (in.isKeyPressed(KeyEvent.VK_E) && canEnd) {
+    if (in.isKeyPressed(KeyEvent.VK_E) && hasRolled) {
       currentPlayer++;
       if (currentPlayer == players.size()) currentPlayer = 0;
       p = players.get(currentPlayer);
-      canRoll = true;
-      canEnd = false;
+      hasRolled = false;
       status = p.getName() + "'s turn, press R to roll";
     }
   }
@@ -127,7 +138,10 @@ public class Board {
     r.fillRect(0, 0, gc.getWidth(), gc.getHeight(), new Color(255,255,255));
     
     r.drawRect(50, 50, 588, 588, new Color(20,20,20));
-    spaces.forEach(s -> s.render(gc, r));
+    for (int i = 0; i < spaces.length-1; i++) {
+      System.out.println(i);
+      spaces[i].render(gc, r);
+    }
     
     // Draw the status panel
     r.drawStringCentered(status, 344, 344, new Font("Arial", Font.PLAIN, 20), new Color(20, 20, 20));
