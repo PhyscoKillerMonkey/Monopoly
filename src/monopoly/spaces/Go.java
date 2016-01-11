@@ -9,6 +9,7 @@ import monopoly.core.Renderer;
 public class Go extends Space {
   
   public Go() {
+    super();
     name = "go";
     index = 0;
   }

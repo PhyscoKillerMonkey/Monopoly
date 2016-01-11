@@ -15,6 +15,7 @@ import com.eclipsesource.json.JsonValue;
 import monopoly.core.GameContainer;
 import monopoly.core.Input;
 import monopoly.core.Renderer;
+import monopoly.spaces.CardSpace;
 import monopoly.spaces.Go;
 import monopoly.spaces.GotoJail;
 import monopoly.spaces.Jail;
@@ -22,6 +23,7 @@ import monopoly.spaces.Parking;
 import monopoly.spaces.Property;
 import monopoly.spaces.Space;
 import monopoly.spaces.Station;
+import monopoly.spaces.Utility;
 
 public class Board {
 
@@ -58,13 +60,23 @@ public class Board {
     spaces = new Space[40];
     
     spaces[0] = new Go();
+    spaces[2] = new CardSpace("Community Chest", 2);
+    spaces[4] = new Tax("Income Tax");
     spaces[5] = new Station("King's Cross Station");
+    spaces[7] = new CardSpace("Chance", 7);
     spaces[10] = new Jail();
+    spaces[12] = new Utility("Electric");
     spaces[15] = new Station("Marylebone Station");
+    spaces[17] = new CardSpace("Community Chest", 17);
     spaces[20] = new Parking();
-    spaces[15] = new Station("Fenchurch St Station");
+    spaces[22] = new CardSpace("Chance", 22);
+    spaces[25] = new Station("Fenchurch St Station");
+    spaces[28] = new Utility("Waterworks");
     spaces[30] = new GotoJail();
-    spaces[15] = new Station("Liverpool Street Station");
+    spaces[33] = new CardSpace("Community Chest", 33);
+    spaces[35] = new Station("Liverpool Street Station");
+    spaces[36] = new CardSpace("Chance", 36);
+    spaces[38] = new Tax("Super Tax");
     
     // Read Properties
     BufferedReader reader = new BufferedReader(new InputStreamReader
@@ -153,8 +165,7 @@ public class Board {
     r.fillRect(0, 0, gc.getWidth(), gc.getHeight(), new Color(255,255,255));
     
     r.drawRect(50, 50, 588, 588, new Color(20,20,20));
-    for (int i = 0; i < spaces.length-1; i++) {
-      System.out.println(i);
+    for (int i = 0; i < spaces.length; i++) {
       spaces[i].render(gc, r);
     }
     

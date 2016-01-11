@@ -9,6 +9,7 @@ import monopoly.core.Renderer;
 public class Jail extends Space {
   
   public Jail() {
+    super();
     name = "jail";
     index = 10;
   }

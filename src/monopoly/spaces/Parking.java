@@ -9,6 +9,7 @@ import monopoly.core.Renderer;
 public class Parking extends Space {
   
   public Parking() {
+    super();
     name = "parking";
     index = 20;
   }

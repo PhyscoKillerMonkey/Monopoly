@@ -1,5 +1,7 @@
 package monopoly.spaces;
 
+import java.awt.Color;
+
 import monopoly.Player;
 import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
@@ -27,7 +29,45 @@ public abstract class Space {
   }
   
   public abstract void action(GameContainer gc, Player p);
-  public abstract void render(GameContainer gc, Renderer r);
+
+  public void render(GameContainer gc, Renderer r) {
+    Color black = new Color(20, 20, 20);
+    
+    int side = (int) Math.floor(index/10);
+    int offset = Math.floorMod(index, 10);
+    
+    int cX = 0, cY = 0, cW = 0, cH = 0;
+    
+    switch (side) {
+      case 0:
+        cX = startX + bWidth - height - width*offset;
+        cY = startY + bHeight - height;
+        cW = width; cH = height;
+        break;
+      case 1:
+        cX = startX;
+        cY = startY + bHeight - height - width*offset;
+        cW = height; cH = width;
+        break;
+      case 2:
+        cX = startX + height + width*(offset-1);
+        cY = startY;
+        cW = width; cH = height;
+        break;
+      case 3:
+        cX = startX + bWidth - height;
+        cY = startY + height + width * (offset-1);
+        cW = height; cH = width;
+        break;
+    }
+    r.drawRect(cX, cY, cW, cH, black);
+    
+    for (int i = 0; i < gc.getGame().getBoard().numberPlayers(); i++) {
+      if (gc.getGame().getBoard().getPlayer(i).getPosition() == index) {
+        r.fillRect(cX, cY, cW, cH, new Color(200, 100, 200));
+      }
+    }
+  }
 
   public String getName() {
     return name;
