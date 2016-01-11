@@ -73,7 +73,7 @@
     "index": 11,
     "name": "Pall Mall",
     "price": 140,
-    "houseCost": 50,
+    "houseCost": 100,
     "rent": {
       "0": 10,
       "1": 50,
@@ -87,7 +87,7 @@
     "index": 13,
     "name": "Whitehall",
     "price": 140,
-    "houseCost": 50,
+    "houseCost": 100,
     "rent": {
       "0": 10,
       "1": 50,
@@ -101,7 +101,7 @@
     "index": 14,
     "name": "Northumberland Avenue",
     "price": 160,
-    "houseCost": 50,
+    "housecost": 100,
     "rent": {
       "0": 12,
       "1": 60,
@@ -115,7 +115,7 @@
     "index": 16,
     "name": "Bow Street",
     "price": 180,
-    "houseCost": 50,
+    "housecost": 100,
     "rent": {
       "0": 14,
       "1": 70,
@@ -129,7 +129,7 @@
     "index": 18,
     "name": "Marlborough Street",
     "price": 180,
-    "houseCost": 50,
+    "housecost": 100,
     "rent": {
       "0": 14,
       "1": 70,
@@ -143,7 +143,7 @@
     "index": 19,
     "name": "Vine Street",
     "price": 200,
-    "houseCost": 50,
+    "housecost": 100,
     "rent": {
       "0": 16,
       "1": 80,
@@ -157,7 +157,7 @@
     "index": 21,
     "name": "The Strand",
     "price": 220,
-    "houseCost": 50,
+    "housecost": 150,
     "rent": {
       "0": 18,
       "1": 90,
@@ -171,7 +171,7 @@
     "index": 23,
     "name": "Fleet Street",
     "price": 220,
-    "houseCost": 50,
+    "housecost": 150,
     "rent": {
       "0": 18,
       "1": 90,
@@ -185,7 +185,7 @@
     "index": 24,
     "name": "Trafalgar Square",
     "price": 240,
-    "houseCost": 50,
+    "housecost": 150,
     "rent": {
       "0": 20,
       "1": 100,
@@ -199,7 +199,7 @@
     "index": 26,
     "name": "Leicester Square",
     "price": 260,
-    "houseCost": 50,
+    "housecost": 150,
     "rent": {
       "0": 22,
       "1": 110,
@@ -213,7 +213,7 @@
     "index": 27,
     "name": "Coventry Street",
     "price": 260,
-    "houseCost": 50,
+    "housecost": 150,
     "rent": {
       "0": 22,
       "1": 110,
@@ -227,7 +227,7 @@
     "index": 29,
     "name": "Piccadilly",
     "price": 280,
-    "houseCost": 50,
+    "housecost": 150,
     "rent": {
       "0": 24,
       "1": 120,
@@ -241,7 +241,7 @@
     "index": 31,
     "name": "Regent Street",
     "price": 300,
-    "houseCost": 50,
+    "housecost": 200,
     "rent": {
       "0": 26,
       "1": 130,
@@ -255,7 +255,7 @@
     "index": 32,
     "name": "Oxford Street",
     "price": 300,
-    "houseCost": 50,
+    "housecost": 200,
     "rent": {
       "0": 26,
       "1": 130,
@@ -269,7 +269,7 @@
     "index": 34,
     "name": "Bond Street",
     "price": 320,
-    "houseCost": 50,
+    "housecost": 200,
     "rent": {
       "0": 28,
       "1": 150,
@@ -283,7 +283,7 @@
     "index": 37,
     "name": "Park Lane",
     "price": 350,
-    "houseCost": 50,
+    "housecost": 200,
     "rent": {
       "0": 35,
       "1": 175,
@@ -297,7 +297,7 @@
     "index": 39,
     "name": "Mayfair",
     "price": 400,
-    "houseCost": 50,
+    "housecost": 200,
     "rent": {
       "0": 50,
       "1": 200,

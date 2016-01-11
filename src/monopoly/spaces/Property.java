@@ -11,12 +11,15 @@ public class Property extends Space {
   
   private int price;
   private int houses;
+  private int houseCost;
   private Player owner;
   private int[] rent;
   
-  public Property(String name, int price, int[] rent, int index) {
+  public Property(String name, int price, int houseCost, int[] rent, int index) {
     this.name = name;
     this.price = price;
+    this.houseCost = houseCost;
+    this.houses = 0;
     this.index = index;
     this.owner = null;
     this.rent = rent;
@@ -79,6 +82,11 @@ public class Property extends Space {
 
   public void setHouses(int houses) {
     this.houses = houses;
+  }
+  
+  public void addHouse(int num) {
+    houses += num;
+    owner.changeMoney(-houseCost * num);
   }
 
   public Player getOwner() {

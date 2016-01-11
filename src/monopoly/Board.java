@@ -62,7 +62,8 @@ public class Board {
     spaces[30] = new GotoJail();
     
     // Read Properties
-    BufferedReader reader = new BufferedReader(new InputStreamReader(GameManager.class.getResourceAsStream("/test.json")));
+    BufferedReader reader = new BufferedReader(new InputStreamReader
+        (GameManager.class.getResourceAsStream("/monopoly/spaces/Properties.json")));
     String file = "";
     try {
       String line = reader.readLine();
@@ -73,11 +74,12 @@ public class Board {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    JsonArray items = Json.parse(file).asObject().get("properties").asArray();
+    JsonArray items = Json.parse(file).asArray();
     for (JsonValue item : items) {
       int index = item.asObject().getInt("index", -1);
       String name = item.asObject().getString("name", "NoName");
       int price = item.asObject().getInt("price", 0);
+      int houseCost = item.asObject().getInt("houseCost", 0);
       int rent0 = item.asObject().getInt("rent0", 0);
       int rent1 = item.asObject().getInt("rent1", 0);
       int rent2 = item.asObject().getInt("rent2", 0);
@@ -85,7 +87,8 @@ public class Board {
       int rent4 = item.asObject().getInt("rent4", 0);
       int rent5 = item.asObject().getInt("rent5", 0);
       int[] rents = {rent0, rent1, rent2, rent3, rent4, rent5};
-      spaces[index] = new Property(name, price, rents, index);
+      spaces[index] = new Property(name, price, houseCost, rents, index);
+      System.out.println(name + " " + price + " " + index);
     }
   }
   
