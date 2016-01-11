@@ -93,7 +93,14 @@ public class Board {
       int rent5 = item.asObject().getInt("rent5", 0);
       int[] rents = {rent0, rent1, rent2, rent3, rent4, rent5};
       spaces[index] = new Property(name, price, houseCost, rents, index);
-      System.out.println(name + " " + price + " " + index);
+    }
+    for (int i = 0; i < spaces.length; i++) {
+      Space s = spaces[i];
+      if (s != null) {
+        System.out.println(i + " " + s.getName() + " ");
+      } else {
+        System.out.println(i + " null");
+      }
     }
   }
   

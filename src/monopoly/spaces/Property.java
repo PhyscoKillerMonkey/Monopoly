@@ -32,7 +32,7 @@ public class Property extends Space {
     } else {
       p.changeMoney(-getRent());
       owner.changeMoney(getRent());
-      gc.getGame().getBoard().setStatus(owner.getName() + " owns " + name + " pay " + rent + " rent");
+      gc.getGame().getBoard().setStatus(owner.getName() + " owns " + name + " pay " + getRent() + " rent");
     }
   }
 

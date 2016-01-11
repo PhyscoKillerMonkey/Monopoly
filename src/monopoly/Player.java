@@ -82,6 +82,10 @@ public class Player {
   public ArrayList<Station> getStations() {
     return stations;
   }
+  
+  public int getNumStations() {
+    return stations.size();
+  }
 
   public void addStation(Station s) {
     stations.add(s);

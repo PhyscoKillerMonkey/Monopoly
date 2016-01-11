@@ -8,13 +8,11 @@ import monopoly.popups.BuyPopup;
 public class Station extends Space {
   
   private int price;
-  private int rent;
   private Player owner;
   
   public Station(String name) {
     this.name = name;
     this.price = 200;
-    this.rent = 25;
     this.owner = null;
   }
 
@@ -25,7 +23,7 @@ public class Station extends Space {
     } else {
       p.changeMoney(-getRent());
       owner.changeMoney(getRent());
-      gc.getGame().getBoard().setStatus(owner.getName() + " owns " + name + " pay " + rent + " rent");
+      gc.getGame().getBoard().setStatus(owner.getName() + " owns " + name + " pay " + getRent() + " rent");
     }
   }
 
@@ -46,6 +44,6 @@ public class Station extends Space {
   }
 
   public int getRent() {
-    return rent;
+    return owner.getNumStations() * 25;
   }
 }
