@@ -1,6 +1,8 @@
 package monopoly.spaces;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import monopoly.Player;
 import monopoly.core.GameContainer;
@@ -31,41 +33,40 @@ public abstract class Space {
   public abstract void action(GameContainer gc, Player p);
 
   public void render(GameContainer gc, Renderer r) {
+    Color white = new Color(255, 255, 255);
     Color black = new Color(20, 20, 20);
+    
+    BufferedImage img = new BufferedImage(width+1, height+1, BufferedImage.TYPE_INT_RGB);
+    Graphics2D g = (Graphics2D) img.getGraphics();
+    g.setColor(white);
+    g.fillRect(0, 0, width, height);
+    g.setColor(black);
+    g.drawRect(0, 0, width, height);
+    
+    for (int i = 0; i < gc.getGame().getBoard().numberPlayers(); i++) {
+      if (gc.getGame().getBoard().getPlayer(i).getPosition() == index) {
+        g.setColor(new Color(200, 100, 200));
+        g.fillRect(1, 1, width-1, height-1);
+      }
+    }
     
     int side = (int) Math.floor(index/10);
     int offset = Math.floorMod(index, 10);
     
-    int cX = 0, cY = 0, cW = 0, cH = 0;
-    
     switch (side) {
       case 0:
-        cX = startX + bWidth - height - width*offset;
-        cY = startY + bHeight - height;
-        cW = width; cH = height;
+        r.drawImage(gc, startX + bWidth - height - width*offset, 
+            startY + bHeight - height, 0, 0, 0, img);
         break;
       case 1:
-        cX = startX;
-        cY = startY + bHeight - height - width*offset;
-        cW = height; cH = width;
+        r.drawImage(gc, startX + height+1, startY + bHeight - height - width*offset, Math.PI/2, 0, 0, img);
         break;
       case 2:
-        cX = startX + height + width*(offset-1);
-        cY = startY;
-        cW = width; cH = height;
+        r.drawImage(gc, startX + height + width*(offset-1), startY, 0, 0, 0, img);
         break;
       case 3:
-        cX = startX + bWidth - height;
-        cY = startY + height + width * (offset-1);
-        cW = height; cH = width;
+        r.drawImage(gc, startX + bWidth - height, startY + height + width * (offset) + 1, -Math.PI/2, 0, 0, img);
         break;
-    }
-    r.drawRect(cX, cY, cW, cH, black);
-    
-    for (int i = 0; i < gc.getGame().getBoard().numberPlayers(); i++) {
-      if (gc.getGame().getBoard().getPlayer(i).getPosition() == index) {
-        r.fillRect(cX, cY, cW, cH, new Color(200, 100, 200));
-      }
     }
   }
 

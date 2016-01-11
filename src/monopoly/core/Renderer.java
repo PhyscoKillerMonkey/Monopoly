@@ -3,7 +3,9 @@ package monopoly.core;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -25,6 +27,18 @@ public class Renderer {
     rh.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     rh.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
     g.setRenderingHints(rh);
+  }
+  
+  public void drawImage(GameContainer gc, double x, double y, double rotation,
+      double cx, double cy, Image img) {
+    AffineTransform t = new AffineTransform();
+    t.translate(x, y);
+    t.rotate(rotation, cx, cy);
+    g.drawImage(img, t, null);
+  }
+  
+  public void drawImage(GameContainer gc, double x, double y, double rotation, Image img) {
+    drawImage(gc, x, y, rotation, img.getWidth(null)/2, img.getHeight(null)/2, img);
   }
   
   public void drawRect(double x, double y, double w, double h, Color c) {
