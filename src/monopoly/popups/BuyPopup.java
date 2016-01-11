@@ -21,7 +21,6 @@ public class BuyPopup extends Popup {
   }
 
   public void update(GameContainer gc) {
-    System.out.println("Popup");
     if (gc.getInput().isKeyPressed(KeyEvent.VK_Y)) {
       if (prop instanceof Property) {
         p.changeMoney(-((Property) prop).getPrice());

@@ -151,6 +151,15 @@ public class Board {
       status = "Press E to end turn";
     }
     
+    // DEBUG move one space
+    if (in.isKeyPressed(KeyEvent.VK_M)) {
+      p.move(1);
+      hasRolled = true;
+      System.out.println(p.getPosition());
+      spaces[p.getPosition()].action(gc, p);
+      status = "Press E to end turn";
+    }
+    
     // End turn
     if (in.isKeyPressed(KeyEvent.VK_E) && hasRolled) {
       currentPlayer++;
