@@ -62,4 +62,12 @@ public class Property extends Space {
   public int getRent() {
     return rent[houses];
   }
+  
+  public int[] getAllRents() {
+    return rent;
+  }
+
+  public int getHouseCost() {
+    return houseCost;
+  }
 }

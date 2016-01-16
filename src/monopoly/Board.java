@@ -106,14 +106,6 @@ public class Board {
       int[] rents = {rent0, rent1, rent2, rent3, rent4, rent5};
       spaces[index] = new Property(name, price, houseCost, rents, index);
     }
-    for (int i = 0; i < spaces.length; i++) {
-      Space s = spaces[i];
-      if (s != null) {
-        System.out.println(i + " " + s.getName() + " ");
-      } else {
-        System.out.println(i + " null");
-      }
-    }
   }
   
   public void addPlayer(String name) {
@@ -135,7 +127,7 @@ public class Board {
   public int rollDie() {
     die1 = (int) Math.ceil(Math.random() * 6);
     die2 = (int) Math.ceil(Math.random() * 6);
-    System.out.println(die1 + die2 + " rolled");
+    System.out.println(die1 + " " + die2 + " rolled");
     return die1 + die2;
   }
   
