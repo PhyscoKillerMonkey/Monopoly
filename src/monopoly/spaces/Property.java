@@ -1,5 +1,8 @@
 package monopoly.spaces;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import monopoly.Player;
 import monopoly.core.GameContainer;
 import monopoly.popups.BuyPopup;
@@ -26,7 +29,17 @@ public class Property extends Space {
   @Override
   public void action(GameContainer gc, Player p) {
     if (owner == null) {
-      gc.getGame().push(new BuyPopup(gc, this, p));
+      Space prop = this;
+      // Wait before pushing the popop (so the player can move there) 
+      Timer t = new Timer();
+      t.schedule(new TimerTask() {
+        @Override
+        public void run() {
+          gc.getGame().push(new BuyPopup(gc, prop, p));
+          // Must cancel the thread else it will not exit
+          t.cancel();
+        }
+      }, 10);
     } else {
       p.changeMoney(-getRent());
       owner.changeMoney(getRent());
