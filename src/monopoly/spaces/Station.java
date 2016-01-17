@@ -40,9 +40,10 @@ public class Station extends Space {
         }
       }, 10);
     } else {
-      p.changeMoney(-getRent());
-      owner.changeMoney(getRent());
-      gc.getGame().getBoard().setStatus(owner.getName() + " owns " + name + " pay " + getRent() + " rent");
+      int rent = getRent();
+      p.changeMoney(-rent);
+      owner.changeMoney(rent);
+      gc.getGame().getBoard().setStatus(owner.getName() + " owns " + name + " pay " + rent + " rent");
     }
   }
 

@@ -9,6 +9,7 @@ import monopoly.core.Renderer;
 import monopoly.spaces.Property;
 import monopoly.spaces.Space;
 import monopoly.spaces.Station;
+import monopoly.spaces.Utility;
 
 public class BuyPopup extends Popup {
   
@@ -31,6 +32,8 @@ public class BuyPopup extends Popup {
       houseCost = ((Property) prop).getHouseCost();
     } else if (prop instanceof Station) {
       price = ((Station) prop).getPrice();
+    } else if (prop instanceof Utility) {
+      price = ((Utility) prop).getPrice();
     }
   }
 
@@ -70,6 +73,9 @@ public class BuyPopup extends Popup {
       r.drawStringCentered("Rent if 2 owned: £50", gc.getWidth()/2, 140+170, font, black);
       r.drawStringCentered("Rent if 3 owned: £100", gc.getWidth()/2, 140+200, font, black);
       r.drawStringCentered("Rent if 4 owned: £200", gc.getWidth()/2, 140+230, font, black);
+    } else if (prop instanceof Utility) {
+      r.drawStringCentered("If ONE Utility is owned rent is 4x the dice" , gc.getWidth()/2, 140+170, font, black);
+      r.drawStringCentered("If BOTH Utilities are owned rent is 10x the dice" , gc.getWidth()/2, 140+200, font, black);
     }
     r.drawStringCentered("Buy? Press Y or N", gc.getWidth()/2, 140+330, font, black);
   }

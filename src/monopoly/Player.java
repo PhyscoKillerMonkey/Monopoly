@@ -6,6 +6,7 @@ import monopoly.core.GameContainer;
 import monopoly.core.Renderer;
 import monopoly.spaces.Property;
 import monopoly.spaces.Station;
+import monopoly.spaces.Utility;
 
 public class Player {
 
@@ -14,6 +15,7 @@ public class Player {
   private int money;
   private ArrayList<Property> properties;
   private ArrayList<Station> stations;
+  private ArrayList<Utility> utilities;
   private boolean inJail;
   
   public Player(String name) {
@@ -21,6 +23,8 @@ public class Player {
     this.position = 0;
     this.money = 1500;
     properties = new ArrayList<>();
+    stations = new ArrayList<>();
+    utilities = new ArrayList<>();
     inJail = false;
   }
   
@@ -91,7 +95,20 @@ public class Player {
     stations.add(s);
     System.out.println(name + " bought " + s.getName());
   }
+  
+  public ArrayList<Utility> getUtilities() {
+    return utilities;
+  }
 
+  public int getNumUtilities() {
+    return utilities.size();
+  }
+  
+  public void addUtility(Utility u) {
+    utilities.add(u);
+    System.out.println(name + " bought " + u.getName());
+  }
+  
   public boolean inJail() {
     return inJail;
   }

@@ -138,7 +138,6 @@ public class Board {
     if (in.isKeyPressed(KeyEvent.VK_R) && !hasRolled) {
       p.move(rollDie());
       hasRolled = true;
-      System.out.println(p.getPosition());
       spaces[p.getPosition()].action(gc, p);
       status = "Press E to end turn";
     }
@@ -147,7 +146,6 @@ public class Board {
     if (in.isKeyPressed(KeyEvent.VK_M)) {
       p.move(1);
       hasRolled = true;
-      System.out.println(p.getPosition());
       spaces[p.getPosition()].action(gc, p);
       status = "Press E to end turn";
     }
@@ -176,5 +174,9 @@ public class Board {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+  
+  public int getDice() {
+    return die1 + die2;
   }
 }
